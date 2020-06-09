@@ -3,4 +3,8 @@
  */
 
 // dev 环境的地址
-export const DEV_ADDRESS = 'http://localhost:9090'
+const DEV_ADDRESS = 'http://localhost:9090'
+
+module.exports = {
+  DEV_ADDRESS
+}

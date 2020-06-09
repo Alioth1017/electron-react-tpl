@@ -15,7 +15,7 @@ const {
 const electronHelper = require('./electron-helper')
 const AppAutoUpdater = require('../controls/AppAutoUpdater')
 const { DEV_ADDRESS } = require('../config/config')
-const log = require('electron-log');
+const log = require('electron-log')
 
 module.exports = class AppMainWindow extends BrowserWindow {
   constructor() {
@@ -31,7 +31,7 @@ module.exports = class AppMainWindow extends BrowserWindow {
       webPreferences: {
         nodeIntegration: true,
         webviewTag: true,
-        preload: path.join(__dirname, 'preload.js')
+        preload: path.join(__dirname, '../preload.js')
       }
     }
 
@@ -47,20 +47,21 @@ module.exports = class AppMainWindow extends BrowserWindow {
   initMainWindow() {
     // 必须在主进程塞入文件前配置 loading
     this.windowLoading()
-    this.loadURL(isDevEnv ? DEV_ADDRESS : `file://${path.join(__dirname, '../render/dist/index.html')}`)
+    this.loadURL(
+      isDevEnv ? DEV_ADDRESS : `file://${path.join(__dirname, '../render/dist/index.html')}`
+    )
 
     // if (isDevEnv) {
-      // 打开开发者工具
-      this.mainWindow.openDevTools()
+    // 打开开发者工具
+    this.mainWindow.openDevTools()
     // }
-      // 异步安装插件
+    // 异步安装插件
     installExtension(REACT_DEVELOPER_TOOLS)
       .then(name => console.log(`Added Extension REDUX_DEVTOOLS:  ${name}`))
       .catch(err => console.log('An error occurred: ', err))
     installExtension(REDUX_DEVTOOLS)
       .then(name => console.log(`Added Extension REDUX_DEVTOOLS:  ${name}`))
       .catch(err => console.log('An error occurred: ', err))
-
   }
 
   // 主进程加载时的loading过渡，避免白屏
@@ -95,13 +96,12 @@ module.exports = class AppMainWindow extends BrowserWindow {
         // this.mainWindow.setSkipTaskbar(true)
       }
 
-
       //   this.mainWindow.hide()
 
       // }
-
     })
-    this.mainWindow.once('ready-to-show', () => { // 加入loading.html后, 此处updateHandle无效
+    this.mainWindow.once('ready-to-show', () => {
+      // 加入loading.html后, 此处updateHandle无效
       // 检查自动更新
       // log.info('enter ready-to-show')
     })
